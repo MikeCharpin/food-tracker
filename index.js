@@ -13,6 +13,13 @@ const submit = document.querySelector("#create-submit")
 const total = document.querySelector("total-calories")
 const list = document.querySelector("food-list")
 
+const clearForm = () => {
+    foodName.value = ""
+    carbs.value = "",
+    protien.value = "",
+    fat.value = ""
+}
+
 
 // Step 1: Add food
 // Create POST request with user ender food info.
@@ -20,7 +27,7 @@ const list = document.querySelector("food-list")
 
 form.addEventListener("submit", e => {
     e.preventDefault()
-    console.log( {
+    API.post("/", {
         fields: {
             foodName: {stringvalue: foodName.value},
             carbs: {integervalue: carbs.value},
@@ -28,7 +35,13 @@ form.addEventListener("submit", e => {
             fat: {integervalue: fat.value}
         }
     })
+    console.log("API Post Sent")
+    clearForm()
 })
+
+
+
+
 
 
 
