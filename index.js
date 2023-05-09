@@ -20,6 +20,10 @@ const clearForm = () => {
     fat.value = ""
 }
 
+const logFood = () => {
+    
+}
+
 
 // Step 1: Add food
 // Create POST request with user ender food info.
@@ -38,6 +42,9 @@ form.addEventListener("submit", e => {
     console.log("API Post Sent")
     clearForm()
 })
+
+// Log entered food
+
 
 
 
