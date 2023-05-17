@@ -33,11 +33,13 @@ form.addEventListener("submit", e => {
     e.preventDefault()
     API.post("/", {
         fields: {
-            foodName: {stringvalue: foodName.value},
-            carbs: {integervalue: carbs.value},
-            protein: {integervalue: protien.value},
-            fat: {integervalue: fat.value}
-        }
+            name: {stringValue: foodName.value},
+            carbs: {integerValue: carbs.value},
+            protein: {integerValue: protien.value},
+            fat: {integerValue: fat.value},
+        },
+    }).then((data) => {
+        console.log(data)
     })
     console.log("API Post Sent")
     clearForm()
