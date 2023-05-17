@@ -43,6 +43,10 @@ form.addEventListener("submit", e => {
     })
     console.log("API Post Sent")
     clearForm()
+    API.get("/").then((data) => {
+        console.log("Getting API")
+        console.log(data)
+    })
 })
 
 // Log entered food
