@@ -1,4 +1,10 @@
-import FetchWrapper from "./food-tracker/fetch-wrapper.js"
+
+import FetchWrapper from "./fetch-wrapper.js"
+
+import snackbar from "snackbar"
+
+snackbar.duration = 5000
+snackbar.gap = 250
 
 const API = new FetchWrapper("https://firestore.googleapis.com/v1/projects/jsdemo-3f387/databases/(default)/documents/deadchanneldice")
 
@@ -79,9 +85,15 @@ form.addEventListener("submit", e => {
             fat: {integerValue: fat.value},
         },
     }).then((data) => {
-        console.log(data)
+        const foodEntry = capitalize(data.fields.name.stringValue)
+        console.log("API Post Sent")
+        if (data.error) {
+          snackbar.show(`Food failed to be logged.`)
+          return
+        }
+        snackbar.show(`${foodEntry} successfully logged!`)
     })
-    console.log("API Post Sent")
+    
     clearForm()
     clearLog()
     clearCalorieCount()
