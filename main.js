@@ -27,35 +27,21 @@ const clearForm = () => {
     fat.value = ""
 }
 
-const clearLog = () => {
-    list.innerHTML = ""
-}
-
 const capitalize = (word) => {
     return word[0].toUpperCase() + word.substring(1).toLowerCase()
 }
 
 
 
-const clearCalorieCount = () => {
-    calorieTotal = 0
-}
 
-let calorieTotal = 0
 
 const callAPI = () => { API.get("/")
-    .then(data => {
-        console.log("Getting API")
-      
+    .then(data => {   
         data.documents?.forEach(entry => {
             const foodTitle = capitalize(entry.fields.name.stringValue)
             const carbValue = entry.fields.carbs.integerValue
             const protienValue = entry.fields.protein.integerValue
             const fatValue = entry.fields.fat.integerValue
-
-            const calorieValue = ((carbValue * 4) + (protienValue * 4) + (fatValue * 9))
-
-            calorieTotal += calorieValue
 
             list.insertAdjacentHTML("beforeend", 
             `<li class="card">
@@ -72,7 +58,6 @@ const callAPI = () => { API.get("/")
             </li> 
             `)
 
-            total.textContent = parseInt(calorieTotal)
             appData.addFood(carbValue, protienValue, fatValue)
             
         })
@@ -103,9 +88,6 @@ form.addEventListener("submit", e => {
     appData.foodStatus()
 
     clearForm()
-    clearLog()
-    clearCalorieCount()
-    // callAPI()
 })
 
 callAPI()
