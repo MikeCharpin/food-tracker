@@ -32,34 +32,35 @@ const capitalize = (word) => {
 }
 
 
+const displayEntry = (foodName, carbs, protein, fat) => {
+    appData.addFood(carbs, protein, fat)
 
+    list.insertAdjacentHTML("beforeend", 
+    `<li class="card">
+    <div>
+        <h3 class="name">${capitalize(foodName)}</h3>
+        <div class="calories">XXXXX calories</div>
+        <ul class="macros">
+            <li class="carbs"><div>Carbs</div><div class="value">${carbs}g</div></li>
+            <li class="protein"><div>Protein</div><div class="value">${protein}g</div></li>    
+            <li class="fat"><div>Fat</div><div class="value">${fat}g</div></li>
+
+        </ul>
+    </div>
+    </li> 
+    `)
+}
 
 
 const callAPI = () => { API.get("/")
     .then(data => {   
         data.documents?.forEach(entry => {
-            const foodTitle = capitalize(entry.fields.name.stringValue)
-            const carbValue = entry.fields.carbs.integerValue
-            const protienValue = entry.fields.protein.integerValue
-            const fatValue = entry.fields.fat.integerValue
-
-            list.insertAdjacentHTML("beforeend", 
-            `<li class="card">
-            <div>
-                <h3 class="name">${foodTitle}</h3>
-                <div class="calories">${calorieValue} calories</div>
-                <ul class="macros">
-                    <li class="carbs"><div>Carbs</div><div class="value">${carbValue}g</div></li>
-                    <li class="protein"><div>Protein</div><div class="value">${protienValue}g</div></li>    
-                    <li class="fat"><div>Fat</div><div class="value">${fatValue}g</div></li>
-
-                </ul>
-            </div>
-            </li> 
-            `)
-
-            appData.addFood(carbValue, protienValue, fatValue)
-            
+            displayEntry(
+                entry.fields.name.stringValue,
+                entry.fields.carbs.integerValue,
+                entry.fields.protein.integerValue,
+                entry.fields.fat.integerValue
+            )            
         })
 })
 }
@@ -86,7 +87,6 @@ form.addEventListener("submit", e => {
     
     appData.addFood(carbs.value, protein.value, fat.value)
     appData.foodStatus()
-
     clearForm()
 })
 
