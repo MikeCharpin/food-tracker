@@ -52,7 +52,7 @@ const displayEntry = (foodName, carbs, protein, fat) => {
 }
 
 
-const callAPI = () => { API.get("/")
+const init = () => { API.get("/")
     .then(data => {   
         data.documents?.forEach(entry => {
             displayEntry(
@@ -90,7 +90,7 @@ form.addEventListener("submit", e => {
     clearForm()
 })
 
-callAPI()
+init()
 appData.foodStatus()
 
 
