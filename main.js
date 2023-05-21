@@ -1,12 +1,12 @@
 
 import FetchWrapper from "./fetch-wrapper.js"
-
 import snackbar from "snackbar"
+import AppData from "./app-data.js"
 
 snackbar.duration = 5000
 snackbar.gap = 250
 
-const API = new FetchWrapper("https://firestore.googleapis.com/v1/projects/jsdemo-3f387/databases/(default)/documents/deadchanneldice")
+const API = new FetchWrapper("https://firestore.googleapis.com/v1/projects/jsdemo-3f387/databases/(default)/documents/deadchanneldice3")
 
 // Connect HTML to JS
 const form = document.querySelector("#create-form")
@@ -14,10 +14,11 @@ const foodName = document.querySelector("#create-name")
 const carbs = document.querySelector("#create-carbs")
 const protein = document.querySelector("#create-protein")
 const fat = document.querySelector("#create-fat")
-
-
 const total = document.querySelector("#total-calories")
 const list = document.querySelector("#food-list")
+
+const appData = new AppData()
+
 
 const clearForm = () => {
     foodName.value = ""
@@ -30,12 +31,14 @@ const clearLog = () => {
     list.innerHTML = ""
 }
 
-const clearCalorieCount = () => {
-    calorieTotal = 0
-}
-
 const capitalize = (word) => {
     return word[0].toUpperCase() + word.substring(1).toLowerCase()
+}
+
+
+
+const clearCalorieCount = () => {
+    calorieTotal = 0
 }
 
 let calorieTotal = 0
@@ -44,7 +47,7 @@ const callAPI = () => { API.get("/")
     .then(data => {
         console.log("Getting API")
       
-        data.documents.forEach(entry => {
+        data.documents?.forEach(entry => {
             const foodTitle = capitalize(entry.fields.name.stringValue)
             const carbValue = entry.fields.carbs.integerValue
             const protienValue = entry.fields.protein.integerValue
@@ -70,6 +73,8 @@ const callAPI = () => { API.get("/")
             `)
 
             total.textContent = parseInt(calorieTotal)
+            appData.addFood(carbValue, protienValue, fatValue)
+            
         })
 })
 }
@@ -94,14 +99,17 @@ form.addEventListener("submit", e => {
         snackbar.show(`${foodEntry} successfully logged!`)
     })
     
+    appData.addFood(carbs.value, protein.value, fat.value)
+    appData.foodStatus()
+
     clearForm()
     clearLog()
     clearCalorieCount()
-    callAPI()
+    // callAPI()
 })
 
 callAPI()
-
+appData.foodStatus()
 
 
 
