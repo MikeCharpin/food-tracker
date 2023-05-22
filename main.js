@@ -6,7 +6,7 @@ import AppData from "./app-data.js"
 snackbar.duration = 5000
 snackbar.gap = 250
 
-const API = new FetchWrapper("https://firestore.googleapis.com/v1/projects/jsdemo-3f387/databases/(default)/documents/deadchanneldice3")
+const API = new FetchWrapper("https://firestore.googleapis.com/v1/projects/jsdemo-3f387/databases/(default)/documents/deadchanneldice4")
 
 // Connect HTML to JS
 const form = document.querySelector("#create-form")
@@ -31,15 +31,19 @@ const capitalize = (word) => {
     return word[0].toUpperCase() + word.substring(1).toLowerCase()
 }
 
+const calculateCalories = (carbs, protein, fat) => {
+    return ((carbs * 4 ) + (protein * 4) + (fat * 9))
+}
 
 const displayEntry = (foodName, carbs, protein, fat) => {
     appData.addFood(carbs, protein, fat)
-
+    const totalCalories = appData.getTotalCalories()
+    total.textContent = totalCalories
     list.insertAdjacentHTML("beforeend", 
     `<li class="card">
     <div>
         <h3 class="name">${capitalize(foodName)}</h3>
-        <div class="calories">XXXXX calories</div>
+        <div class="calories">${calculateCalories(carbs, protein, fat)} calories</div>
         <ul class="macros">
             <li class="carbs"><div>Carbs</div><div class="value">${carbs}g</div></li>
             <li class="protein"><div>Protein</div><div class="value">${protein}g</div></li>    
@@ -85,7 +89,13 @@ form.addEventListener("submit", e => {
         snackbar.show(`${foodEntry} successfully logged!`)
     })
     
-    appData.addFood(carbs.value, protein.value, fat.value)
+    displayEntry(
+        foodName.value, 
+        carbs.value, 
+        protein.value, 
+        fat.value
+    )
+
     appData.foodStatus()
     clearForm()
 })
