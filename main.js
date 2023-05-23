@@ -2,6 +2,7 @@
 import FetchWrapper from "./fetch-wrapper.js"
 import snackbar from "snackbar"
 import AppData from "./app-data.js"
+import 'chart.js';
 
 snackbar.duration = 5000
 snackbar.gap = 250
@@ -16,6 +17,7 @@ const protein = document.querySelector("#create-protein")
 const fat = document.querySelector("#create-fat")
 const total = document.querySelector("#total-calories")
 const list = document.querySelector("#food-list")
+const context = document.querySelector("#app-chart").getContext("2d")
 
 const appData = new AppData()
 
@@ -33,6 +35,25 @@ const capitalize = (word) => {
 
 const calculateCalories = (carbs, protein, fat) => {
     return ((carbs * 4 ) + (protein * 4) + (fat * 9))
+}
+
+let chartInstance = null
+
+const renderChart = () => {
+    chartInstance?.destroy()
+    chartInstance = new Chart(context, {
+        type: 'bar',
+    data: {
+      labels: ["Carbs", "Protein", "Fat"],
+      datasets: [
+        {
+          label: "Macronutrients",
+          data: ['10', '20', '30'],
+          backgroundColor: ["#222222", "#FFFFFF", "#444555"],
+        },
+      ],
+    },
+    })
 }
 
 const displayEntry = (foodName, carbs, protein, fat) => {
@@ -56,6 +77,8 @@ const displayEntry = (foodName, carbs, protein, fat) => {
 }
 
 
+
+
 const init = () => { API.get("/")
     .then(data => {   
         data.documents?.forEach(entry => {
@@ -66,6 +89,7 @@ const init = () => { API.get("/")
                 entry.fields.fat.integerValue
             )            
         })
+        renderChart()
 })
 }
 
@@ -98,10 +122,13 @@ form.addEventListener("submit", e => {
 
     appData.foodStatus()
     clearForm()
+    
 })
 
+
+
 init()
-appData.foodStatus()
+
 
 
 
