@@ -39,6 +39,8 @@ const calculateCalories = (carbs, protein, fat) => {
 
 let chartInstance = null
 
+console.log(appData.getTotalCarbs())
+
 const renderChart = () => {
     chartInstance?.destroy()
     chartInstance = new Chart(context, {
@@ -48,11 +50,20 @@ const renderChart = () => {
       datasets: [
         {
           label: "Macronutrients",
-          data: ['10', '20', '30'],
+          data: [`${appData.getTotalCarbs()}`, `${appData.getTotalProteins()}`, `${appData.getTotalFat()}`],
           backgroundColor: ["#222222", "#FFFFFF", "#444555"],
         },
       ],
     },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
     })
 }
 
@@ -122,6 +133,7 @@ form.addEventListener("submit", e => {
 
     appData.foodStatus()
     clearForm()
+    renderChart()
     
 })
 
