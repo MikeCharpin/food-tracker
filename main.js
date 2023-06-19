@@ -29,7 +29,7 @@ import 'chart.js';
 snackbar.duration = 5000
 snackbar.gap = 250
 
-const API = new FetchWrapper("https://console.firebase.google.com/project/food-tracker-2aa66/database/food-tracker-2aa66-default-rtdb/data/~2F.json")
+const API = new FetchWrapper("https://food-tracker-2aa66-default-rtdb.firebaseio.com/")
 
 // Connect HTML to JS
 const form = document.querySelector("#create-form")
