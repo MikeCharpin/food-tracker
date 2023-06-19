@@ -1,3 +1,25 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCposm8Kob5_573igt-LZbN5l9Q1krALf4",
+  authDomain: "food-tracker-2aa66.firebaseapp.com",
+  projectId: "food-tracker-2aa66",
+  storageBucket: "food-tracker-2aa66.appspot.com",
+  messagingSenderId: "360155374475",
+  appId: "1:360155374475:web:ddcf01008afb7a1cb9058e",
+  measurementId: "G-SVRME3PV8Z"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+
 
 import FetchWrapper from "./fetch-wrapper.js"
 import snackbar from "snackbar"
