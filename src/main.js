@@ -1,19 +1,16 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCposm8Kob5_573igt-LZbN5l9Q1krALf4",
-  authDomain: "food-tracker-2aa66.firebaseapp.com",
-  projectId: "food-tracker-2aa66",
-  storageBucket: "food-tracker-2aa66.appspot.com",
-  messagingSenderId: "360155374475",
-  appId: "1:360155374475:web:ddcf01008afb7a1cb9058e",
-  measurementId: "G-SVRME3PV8Z"
+  apiKey: "AIzaSyCVywBYr_Ada1wctslnnCbAO7246zrcIYU",
+  authDomain: "food-tracker-7d40d.firebaseapp.com",
+  projectId: "food-tracker-7d40d",
+  storageBucket: "food-tracker-7d40d.appspot.com",
+  messagingSenderId: "290009802916",
+  appId: "1:290009802916:web:ca812551098901927b5e31"
 };
 
 // Initialize Firebase
@@ -29,7 +26,7 @@ import 'chart.js';
 snackbar.duration = 5000
 snackbar.gap = 250
 
-const API = new FetchWrapper("https://food-tracker-2aa66-default-rtdb.firebaseio.com/")
+const API = new FetchWrapper("https://food-tracker-7d40d-default-rtdb.firebaseio.com/")
 
 // Connect HTML to JS
 const form = document.querySelector("#create-form")
